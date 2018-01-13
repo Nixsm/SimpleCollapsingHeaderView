@@ -36,6 +36,10 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 - Minimum iOS version required: 9.0
 
+## TODOs
+
+- Implement the previous scroll inset in a way that you can have more than 1 scrollView resizing the Header View
+
 ## Installation
 
 SimpleCollapsingHeaderView is available through [CocoaPods](http://cocoapods.org). To install
