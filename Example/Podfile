@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'SimpleCollapsingHeaderView_Example' do
+  pod 'SimpleCollapsingHeaderView', :path => '../'
+
+  target 'SimpleCollapsingHeaderView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
