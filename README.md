@@ -7,6 +7,8 @@
 
 A Simple collapsing header view based on this [post](https://michiganlabs.com/ios/development/2016/05/31/ios-animating-uitableview-header/)
 
+![Demo Gif](example.gif)
+
 ## Usage
 
 1. Open o storyboard or Xib file.
