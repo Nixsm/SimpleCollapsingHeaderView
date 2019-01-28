@@ -7,10 +7,11 @@
 //
 
 import UIKit
-import SimpleCollapsingHeaderView
 
 class ViewController: UIViewController {
-    
+	
+	@IBOutlet weak var viewTopCons: NSLayoutConstraint!
+	@IBOutlet weak var viewHeightCons: NSLayoutConstraint!	
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var headerView: SimpleCollapsingHeaderView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -20,7 +21,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         tableView.delegate = self
         tableView.dataSource = self
-        headerView.delegate = self
+        headerView?.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,9 +32,11 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UITableViewDelegate {
+	
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         headerView?.collapseHeaderView(using: scrollView)
     }
+	
 }
 
 extension ViewController: UITableViewDataSource {
@@ -50,6 +53,9 @@ extension ViewController: UITableViewDataSource {
 
 extension ViewController: SimpleCollapsingHeaderViewDelegate {
 	func onHeaderDidAnimate(with currentValue: (CGFloat, CGFloat) -> CGFloat) {
-		titleLabel.alpha = currentValue(0, 1)
+        titleLabel.alpha = currentValue(0, 1)
+		self.viewTopCons.constant = currentValue(20, 44)
+		self.viewHeightCons.constant = currentValue(40, 73)
     }
+	
 }

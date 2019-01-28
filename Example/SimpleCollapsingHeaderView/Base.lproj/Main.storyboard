@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lu6-dT-0CY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lu6-dT-0CY">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0N-JV-dnS" customClass="SimpleCollapsingHeaderView" customModule="SimpleCollapsingHeaderView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0N-JV-dnS" customClass="SimpleCollapsingHeaderView" customModule="SimpleCollapsingHeaderView_Example" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gat-9e-ivq">
@@ -33,12 +33,22 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xfr-aZ-iyQ">
+                                        <rect key="frame" x="151" y="43" width="73" height="73"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="73" id="Ibg-vN-n59"/>
+                                            <constraint firstAttribute="width" secondItem="xfr-aZ-iyQ" secondAttribute="height" id="IgR-Hk-w2z"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.1450980392" green="0.23137254900000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Gat-9e-ivq" secondAttribute="bottom" constant="8" id="0Tw-JJ-jJ6"/>
+                                    <constraint firstItem="xfr-aZ-iyQ" firstAttribute="centerX" secondItem="f0N-JV-dnS" secondAttribute="centerX" id="6X0-dr-Axz"/>
                                     <constraint firstItem="Gat-9e-ivq" firstAttribute="leading" secondItem="f0N-JV-dnS" secondAttribute="leading" constant="16" id="E4e-6D-RfO"/>
                                     <constraint firstAttribute="height" constant="170" id="iD1-Z8-1Jp"/>
+                                    <constraint firstItem="xfr-aZ-iyQ" firstAttribute="top" secondItem="f0N-JV-dnS" secondAttribute="top" constant="43" id="kVO-V7-viQ"/>
                                     <constraint firstAttribute="trailing" secondItem="Gat-9e-ivq" secondAttribute="trailing" constant="16" id="uTb-VO-o3n"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -70,11 +80,13 @@
                         <outlet property="headerView" destination="f0N-JV-dnS" id="t25-Cp-OJJ"/>
                         <outlet property="tableView" destination="FGk-TG-zpB" id="3At-G2-gBm"/>
                         <outlet property="titleLabel" destination="Gat-9e-ivq" id="I62-h1-F8Y"/>
+                        <outlet property="viewHeightCons" destination="Ibg-vN-n59" id="3U4-Vg-Jtz"/>
+                        <outlet property="viewTopCons" destination="kVO-V7-viQ" id="hC9-Sl-4dU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1oB-7W-HtU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-105" y="-15"/>
+            <point key="canvasLocation" x="-106.40000000000001" y="-15.742128935532236"/>
         </scene>
     </scenes>
 </document>
