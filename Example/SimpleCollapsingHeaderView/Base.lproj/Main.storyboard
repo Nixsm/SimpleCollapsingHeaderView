@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lu6-dT-0CY">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lu6-dT-0CY">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -24,6 +22,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0N-JV-dnS" customClass="SimpleCollapsingHeaderView" customModule="SimpleCollapsingHeaderView_Example" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
                                 <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="poster" translatesAutoresizingMaskIntoConstraints="NO" id="QnW-vB-5Oq">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="170" id="4Oy-XN-pFT"/>
+                                        </constraints>
+                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gat-9e-ivq">
                                         <rect key="frame" x="16" y="132" width="343" height="30"/>
                                         <constraints>
@@ -44,9 +48,12 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.1450980392" green="0.23137254900000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Gat-9e-ivq" secondAttribute="bottom" constant="8" id="0Tw-JJ-jJ6"/>
+                                    <constraint firstAttribute="trailing" secondItem="QnW-vB-5Oq" secondAttribute="trailing" id="0lv-wQ-YYp"/>
                                     <constraint firstItem="xfr-aZ-iyQ" firstAttribute="centerX" secondItem="f0N-JV-dnS" secondAttribute="centerX" id="6X0-dr-Axz"/>
                                     <constraint firstItem="Gat-9e-ivq" firstAttribute="leading" secondItem="f0N-JV-dnS" secondAttribute="leading" constant="16" id="E4e-6D-RfO"/>
+                                    <constraint firstItem="QnW-vB-5Oq" firstAttribute="bottom" secondItem="Gat-9e-ivq" secondAttribute="bottom" constant="8" id="SsZ-as-4uX"/>
+                                    <constraint firstItem="QnW-vB-5Oq" firstAttribute="top" secondItem="f0N-JV-dnS" secondAttribute="top" id="fGM-oB-pcy"/>
+                                    <constraint firstItem="QnW-vB-5Oq" firstAttribute="leading" secondItem="f0N-JV-dnS" secondAttribute="leading" id="hq8-FX-qcR"/>
                                     <constraint firstAttribute="height" constant="170" id="iD1-Z8-1Jp"/>
                                     <constraint firstItem="xfr-aZ-iyQ" firstAttribute="top" secondItem="f0N-JV-dnS" secondAttribute="top" constant="43" id="kVO-V7-viQ"/>
                                     <constraint firstAttribute="trailing" secondItem="Gat-9e-ivq" secondAttribute="trailing" constant="16" id="uTb-VO-o3n"/>
@@ -78,6 +85,9 @@
                     </view>
                     <connections>
                         <outlet property="headerView" destination="f0N-JV-dnS" id="t25-Cp-OJJ"/>
+                        <outlet property="imageViewHeightConstraint" destination="4Oy-XN-pFT" id="XNW-xD-jxS"/>
+                        <outlet property="imageViewLeadingConstraint" destination="hq8-FX-qcR" id="BeI-nY-FzP"/>
+                        <outlet property="imageViewTrailingConstraint" destination="0lv-wQ-YYp" id="5do-eN-pUG"/>
                         <outlet property="tableView" destination="FGk-TG-zpB" id="3At-G2-gBm"/>
                         <outlet property="titleLabel" destination="Gat-9e-ivq" id="I62-h1-F8Y"/>
                         <outlet property="viewHeightCons" destination="Ibg-vN-n59" id="3U4-Vg-Jtz"/>
@@ -89,4 +99,7 @@
             <point key="canvasLocation" x="-106.40000000000001" y="-15.742128935532236"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="poster" width="960" height="640"/>
+    </resources>
 </document>

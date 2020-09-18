@@ -11,19 +11,30 @@ import UIKit
 class ViewController: UIViewController {
 	
 	@IBOutlet weak var viewTopCons: NSLayoutConstraint!
-	@IBOutlet weak var viewHeightCons: NSLayoutConstraint!	
+	@IBOutlet weak var viewHeightCons: NSLayoutConstraint!
+	@IBOutlet weak var imageView: UIImageView!
+	@IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var headerView: SimpleCollapsingHeaderView!
     @IBOutlet weak var titleLabel: UILabel!
+	@IBOutlet weak var imageViewLeadingConstraint: NSLayoutConstraint!
+	@IBOutlet weak var imageViewTrailingConstraint: NSLayoutConstraint!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tableView.delegate = self
         tableView.dataSource = self
+		tableView.backgroundColor = nil
         headerView?.delegate = self
     }
 
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+        headerView?.collapseHeaderView(using: tableView)
+	}
+	
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -52,10 +63,13 @@ extension ViewController: UITableViewDataSource {
 }
 
 extension ViewController: SimpleCollapsingHeaderViewDelegate {
-	func onHeaderDidAnimate(with currentValue: (CGFloat, CGFloat) -> CGFloat) {
-        titleLabel.alpha = currentValue(0, 1)
-		self.viewTopCons.constant = currentValue(20, 44)
-		self.viewHeightCons.constant = currentValue(40, 73)
+	func headerDidAnimate(to currentValueWithMinMax: (CGFloat, CGFloat) -> CGFloat) {
+        titleLabel.alpha = currentValueWithMinMax(0, 1)
+		self.viewTopCons.constant = currentValueWithMinMax(20, 44)
+		self.viewHeightCons.constant = currentValueWithMinMax(40, 73)
+		self.imageViewHeightConstraint.constant = currentValueWithMinMax(64, 170)
+		imageViewLeadingConstraint.constant = currentValueWithMinMax(0, -50)
+		imageViewTrailingConstraint.constant = currentValueWithMinMax(0, -50)
     }
 	
 }
