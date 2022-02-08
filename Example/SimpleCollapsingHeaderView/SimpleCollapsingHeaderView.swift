@@ -9,13 +9,13 @@
 import UIKit
 
 public protocol SimpleCollapsingHeaderViewDelegate: class {
-	func onHeaderDidAnimate(with percentage: CGFloat)
-	func onHeaderDidAnimate(with currentValue: (_ min: CGFloat, _ max: CGFloat) -> CGFloat)
+	func headerDidAnimate(to percentage: CGFloat)
+	func headerDidAnimate(to currentValueWithMinMax: (_ min: CGFloat, _ max: CGFloat) -> CGFloat)
 }
 
 extension SimpleCollapsingHeaderViewDelegate {
 	
-	func onHeaderDidAnimate(with percentage: CGFloat) {
+	func headerDidAnimate(to percentage: CGFloat) {
 		
 	}
 	
@@ -24,6 +24,22 @@ extension SimpleCollapsingHeaderViewDelegate {
 @IBDesignable
 public class SimpleCollapsingHeaderView: UIView {
     
+	// MARK: Initialize
+	
+	public override init(frame: CGRect) {
+		super.init(frame: frame)
+		self.initialize()
+	}
+	
+	required init?(coder: NSCoder) {
+		super.init(coder: coder)
+		self.initialize()
+	}
+	
+	func initialize() {
+		self.clipsToBounds = false
+	}
+	
     // MARK: Properties
     
     var previousScrollOffset: CGFloat = -1
@@ -44,6 +60,8 @@ public class SimpleCollapsingHeaderView: UIView {
     
     public var delegate: SimpleCollapsingHeaderViewDelegate?
 
+	public var allowtoStretch: Bool = true
+	
     // MARK: Overrides
 
     public override func draw(_ rect: CGRect) {
@@ -55,6 +73,7 @@ public class SimpleCollapsingHeaderView: UIView {
         }
         headerHeightConstraint?.constant = maxHeight
     }
+	
 }
 
 public extension SimpleCollapsingHeaderView {
@@ -67,7 +86,7 @@ public extension SimpleCollapsingHeaderView {
 		let scrollDiff = scrollView.contentOffset.y - self.previousScrollOffset
 		
 		let absoluteTop: CGFloat = 0
-		//		let absoluteBottom: CGFloat = scrollView.contentSize.height - scrollView.frame.size.height
+//		let absoluteBottom: CGFloat = scrollView.contentSize.height - scrollView.frame.size.height
 		
 		let isScrollingUp = scrollDiff > 0 && scrollView.contentOffset.y > absoluteTop
 		let isScrollingDown = scrollDiff < 0
@@ -75,51 +94,57 @@ public extension SimpleCollapsingHeaderView {
 		if isScrollingUp {
 			newHeight = max(minHeight, newHeight - abs(scrollDiff))
 		} else if isScrollingDown {
-			newHeight = min(maxHeight, newHeight + abs(scrollDiff))
+			newHeight = newHeight + abs(scrollDiff)
 		}
 		
 		if newHeight != currentHeight {
-			headerHeightConstraint?.constant = newHeight
+			headerHeightConstraint?.constant = min(maxHeight, newHeight)
 		}
+		
+		if !allowtoStretch {
+			newHeight = self.headerHeightConstraint?.constant ?? 0
+		}
+		
 		
 		if currentHeight != minHeight, isScrollingUp {
-			set(position: self.previousScrollOffset, for: scrollView)
+			set(position: 0, for: scrollView)
 			self.previousScrollOffset = scrollView.contentOffset.y
 		}
-		
-		updateHeader()
+
+		updateHeader(for: newHeight)
 	}
-	
+		
 }
 
 private extension SimpleCollapsingHeaderView {
 	
-	func canAnimateHeader(_ scrollView: UIScrollView) -> Bool {
-		guard let heightConstraint = headerHeightConstraint?.constant else {
-			return false
-		}
-		let scrollViewMaxHeight = scrollView.frame.height + heightConstraint - minHeight
-		
-		return scrollView.contentSize.height > scrollViewMaxHeight
-	}
-	
-	func set(position: CGFloat, for scrollView: UIScrollView) {
-		scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: position)
-	}
-	
-	func updateHeader() {
-		guard let heightConstraint = headerHeightConstraint?.constant else { return }
-		let range = maxHeight - minHeight
-		let openAmount = heightConstraint - minHeight
-		let percentage = openAmount / range
-		
+    func canAnimateHeader(_ scrollView: UIScrollView) -> Bool {
+        guard let heightConstraint = headerHeightConstraint?.constant else {
+            return false
+        }
+        let scrollViewMaxHeight = scrollView.frame.height + heightConstraint - minHeight
+        
+        return scrollView.contentSize.height > scrollViewMaxHeight
+    }
+    
+    func set(position: CGFloat, for scrollView: UIScrollView) {
+        scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: position)
+    }
+    
+	func updateHeader(for height: CGFloat) {
+        let range = max(maxHeight - minHeight, 1)
+        let expandAmount = height - minHeight
+        let percentage = expandAmount / range
+				
 		func currentValue(min: CGFloat, max: CGFloat) -> CGFloat {
 			let diff = (max - min)*percentage
 			return min + diff
+			//min + diff
 		}
 		
-		delegate?.onHeaderDidAnimate(with: percentage)
-		delegate?.onHeaderDidAnimate(with: currentValue)
-	}
+        delegate?.headerDidAnimate(to: percentage)
+		delegate?.headerDidAnimate(to: currentValue)
+    }
 	
 }
+
